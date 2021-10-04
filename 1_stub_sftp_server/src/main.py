@@ -48,4 +48,12 @@ def main():
     server = StubServer()
     transport.start_server(server=server)
 
+    channel = transport.accept()
+    while transport.is_active():
+        time.sleep(1)
+
+
+if __name__ == '__main__':
+    main()
+
 
