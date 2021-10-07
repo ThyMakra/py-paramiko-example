@@ -24,5 +24,5 @@ To reset the RSA key of port _:8022_ `known_hosts` on your computer:
 
 ## Connect To The Server
 
-`sftp -P 8022 127.0.0.1`
-`sftp -P 8022 user@127.0.0.1`
+- `sftp -P 8022 127.0.0.1`
+- `sftp -P 8022 user@127.0.0.1`
