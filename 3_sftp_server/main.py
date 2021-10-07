@@ -37,7 +37,6 @@ def main():
     transport.add_server_key(host_key)
     transport.set_subsystem_handler(
         'sftp', paramiko.SFTPServer, StubSFTPServer
-
     )
 
     server = StubServer()

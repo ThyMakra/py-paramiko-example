@@ -4,6 +4,8 @@ import paramiko
 logging.basicConfig(level=logging.DEBUG)
 
 class StubServer(paramiko.ServerInterface):
+    def __init__(self):
+        self.username = None
 
     def check_channel_subsystem_request(self, channel, name):
         print(f'\n====== Channel ===== {channel}')
@@ -15,6 +17,8 @@ class StubServer(paramiko.ServerInterface):
         return paramiko.OPEN_SUCCEEDED
 
     def check_auth_password(self, username, password):
+        # passing the username to the sub-system
+        self.username = username
         return paramiko.AUTH_SUCCESSFUL
 
     def check_auth_publickey(self, username, key: paramiko.PKey):
@@ -22,11 +26,13 @@ class StubServer(paramiko.ServerInterface):
         return paramiko.AUTH_SUCCESSFUL
     
     def get_allowed_auths(self, username):
-        return ""
+        # should not return empty string
+        # then it will not check_auth_password
+        return "password"
 
     def check_channel_shell_request(self, channel):
         logging.debug(f"\ncheck_channel_shell_request | channel {channel}")
-        return True
+        return False
 
     def check_channel_env_request(self, channel, key, value):
         logging.debug(f"\ncheck_channel_env_request | channel {channel} | env {key}={value}")
